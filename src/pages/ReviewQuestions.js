@@ -39,19 +39,27 @@ class ReviewQuestions extends Component {
         let resultComponents = this.state.results.map((result,i) => {
             let columns = Object.keys(result.questions).map(key => {
                 return (
-                    <div>
+                    <div className="mv2">
                         {key} : {result.questions[key]}
                     </div>
                 )
             });
 
            return (
-               <div className='flex w-100 justify-between mv3' key={result.id}>
-                   {columns}
-                   <div>
+               <tr className="stripe-dark" key={result.id}>
+                   <td className="pa3">
+                       {result.user.name}
+                   </td>
+                   <td className="pa3">
+                       {result.user.email}
+                   </td>
+                   <td className="pa3">
+                    {columns}
+                   </td>
+                   <td className="pa3">
                        <input type="number" defaultValue={result.score} onChange={(e) =>{this.grade(e, i)}}/>
-                   </div>
-               </div>
+                   </td>
+               </tr>
            )
         });
         return (
@@ -61,7 +69,20 @@ class ReviewQuestions extends Component {
                     <option value="1">Graded</option>
                     <option value="0">Not Graded</option>
                 </select>
+                <table className="f6 w-100 center" cellspacing="0">
+                    <thead>
+                    <tr className="stripe-dark">
+                        <th className="fw6 tl pa3 bg-white">Name</th>
+                        <th className="fw6 tl pa3 bg-white">Email</th>
+                        <th className="fw6 tl pa3 bg-white">Questions</th>
+                        <th className="fw6 tl pa3 bg-white">Score</th>
+                    </tr>
+                    </thead>
+                    <tbody className="lh-copy">
+
+                    </tbody>
                 {resultComponents}
+                </table>
             </div>
         )
 
