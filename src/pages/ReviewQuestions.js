@@ -48,7 +48,7 @@ class ReviewQuestions extends Component {
            return (
                <tr className="stripe-dark" key={result.id}>
                    <td className="pa3">
-                       {result.user.name}
+                       {result.user.firstName} {result.user.lastName}
                    </td>
                    <td className="pa3">
                        {result.user.email}

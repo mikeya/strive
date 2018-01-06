@@ -4,8 +4,8 @@ class Login extends Component {
     constructor(props){
         super(props);
         this.state = {
-            name:"",
-            email: "",
+            firstName:"",
+            lastName: "",
             password:""
         };
         this.onChange = this.onChange.bind(this);
@@ -30,16 +30,16 @@ class Login extends Component {
                     <fieldset id="sign_up" className="ba b--transparent ph0 mh0" >
                         <legend className="f4 fw6 ph0 mh0">Sign Up</legend>
                         <div className="mt3">
-                            <label className="db fw6 lh-copy f6" htmlFor="email">Name</label>
-                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="name"  id="name" onChange={this.onChange} value={this.state.name}/>
+                            <label className="db fw6 lh-copy f6" htmlFor="email">First Name</label>
+                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="firstName"  id="firstName" onChange={this.onChange} value={this.state.firstName}/>
+                        </div>
+                        <div className="mv3">
+                            <label className="db fw6 lh-copy f6" htmlFor="password">Last Name</label>
+                            <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="lastName"  id="lastName" onChange={this.onChange} value={this.state.lastName}/>
                         </div>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email">Email</label>
                             <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email"  id="email" onChange={this.onChange} value={this.state.email}/>
-                        </div>
-                        <div className="mv3">
-                            <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                            <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" onChange={this.onChange} value={this.state.password}/>
                         </div>
                     </fieldset>
                     <div className="">
