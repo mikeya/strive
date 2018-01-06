@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import FormManager from '../components/FormManager';
 import FormPage from '../components/FormManager/FormPage';
 import questions from '../data/questions';

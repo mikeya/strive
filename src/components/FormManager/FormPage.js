@@ -38,7 +38,7 @@ class FormPage extends Component {
                     </div>
                     <div>
                         <CountDown
-                            minutes={time.minutes}
+                            time={time}
                             done={this.handleSubmit}/>
                     </div>
                 </header>

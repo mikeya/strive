@@ -7,9 +7,10 @@ class FormManager extends Component {
         super();
         this.state = {
             step: 0,
-            data: {}
+            data: {},
         };
-        this.totalCount = {
+
+        this.time = {
             minutes: 0
         };
 
@@ -17,6 +18,9 @@ class FormManager extends Component {
     }
 
     nextStep(data){
+        this.time = {
+            minutes: 0
+        };
         this.setState({
             step: this.state.step + 1,
             data: Object.assign({}, this.state.data, data)
@@ -39,7 +43,9 @@ class FormManager extends Component {
     render(){
         const childrenWithProps = React.Children.map(this.props.children,
             child  => {
-                this.totalCount.minutes += child.props.time.minutes;
+                if(this.state.step < child.props.index){
+                    this.time.minutes = this.time.minutes += child.props.time.minutes
+                }
                 return React.cloneElement(child, {
                     onSubmit: (data) => {
                         this.nextStep(data);
@@ -55,7 +61,7 @@ class FormManager extends Component {
                     <div>
                         Total time remaining:
                         <CountDown
-                            minutes={this.totalCount.minutes}
+                            time={this.time}
                             done={this.handleSubmit}/>
                     </div>
 
