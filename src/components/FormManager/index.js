@@ -25,7 +25,8 @@ class FormManager extends Component {
 
     saveResult() {
         let results = JSON.parse(localStorage.getItem('results'));
-        let result =  {id: Math.random().toString(36).substr(2, 9), userId:1, graded: false, score: null, questions: this.state.data};
+        let user = JSON.parse(localStorage.getItem("user"));
+        let result =  {user, id: Math.random().toString(36).substr(2, 9), userId:1, graded: false, score: null, questions: this.state.data};
         if(results === null){
             results = [result];
         }else {

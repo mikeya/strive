@@ -3,6 +3,7 @@ import {
     BrowserRouter as Router,
     Route
 } from 'react-router-dom'
+import Login from './pages/Login';
 import QuestionFlow from './pages/QuestionFlow';
 import ReviewQuestions from './pages/ReviewQuestions';
 
@@ -16,6 +17,7 @@ class App extends Component {
         <Router>
             <div>
                 <Route exact path="/" component={QuestionFlow}/>
+                <Route exact path="/login" component={Login}/>
                 <Route exact path="/score" component={ReviewQuestions}/>
             </div>
         </Router>

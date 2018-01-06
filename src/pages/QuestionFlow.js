@@ -4,6 +4,11 @@ import FormPage from '../components/FormManager/FormPage';
 import questions from '../data/questions';
 
 export default () => {
+    let user = localStorage.getItem("user");
+    if(!user){
+        window.location = '/login';
+        return;
+    }
     const forms = questions.map((question, i) => (
         <FormPage
             id={question.id}
