@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import CountDown from '../CountDown';
+import TextArea from '../Form/TextArea'
 
 class FormPage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            value: ""
+            response: "",
+            testId: props.testId,
+            questionId: props.questionId
         };
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -16,19 +21,28 @@ class FormPage extends Component {
             event.preventDefault();
         }
 
-        if(typeof this.props.onSubmit === 'function'){
-            this.props.onSubmit({[this.props.id] : this.state.value})
-        }
+        this.props.mutate({ variables: {input: this.state }})
+            .then( response => {
+                this.props.onSubmit();
+
+            }).catch(e => {
+            console.error(e);
+        });
     }
 
     render(){
         const {
             index,
             count,
-            text,
-            input,
+            prompt,
+            responseType,
             time
         } = this.props;
+
+        let input;
+        if(responseType === 'textarea'){
+            input = <TextArea/>;
+        }
 
         return (
             <div>
@@ -43,12 +57,12 @@ class FormPage extends Component {
                     </div>
                 </header>
                 <div className="mv4">
-                    {text}
+                    {prompt}
                 </div>
                 {React.cloneElement(input, {
                     onChange: (e) => {
                         this.setState({
-                            value: e.target.value
+                            response: e.target.value
                         })
                     }
                 })}
@@ -59,5 +73,12 @@ class FormPage extends Component {
         )
     }
 }
-
-export default FormPage;
+export default graphql(
+    gql`
+      mutation submitAnswer($input: AnswerInput) {
+        submitAnswer(input: $input) {
+          id
+        }
+      }
+    `
+)(FormPage);

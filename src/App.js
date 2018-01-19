@@ -1,29 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { ApolloProvider } from 'react-apollo';
+import client from './client';
 import {
     BrowserRouter as Router,
     Route
 } from 'react-router-dom'
 import Login from './pages/Login';
 import QuestionFlow from './pages/QuestionFlow';
-import ReviewQuestions from './pages/ReviewQuestions';
+import GradeQuestions from './pages/GradeQuestions';
 
 import './App.css';
 
 
-class App extends Component {
-  render() {
-
-    return (
+export default () => (
+    <ApolloProvider client={client}>
         <Router>
             <div>
                 <Route exact path="/" component={QuestionFlow}/>
                 <Route exact path="/login" component={Login}/>
-                <Route exact path="/score" component={ReviewQuestions}/>
+                <Route exact path="/grade" component={GradeQuestions}/>
             </div>
         </Router>
+    </ApolloProvider>
+);
 
-    );
-  }
-}
 
-export default App;

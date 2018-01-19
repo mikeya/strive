@@ -1,4 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class Login extends Component {
     constructor(props){
@@ -6,7 +9,7 @@ class Login extends Component {
         this.state = {
             firstName:"",
             lastName: "",
-            password:""
+            email:""
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -19,8 +22,16 @@ class Login extends Component {
     }
     onSubmit(e){
         e.preventDefault();
-        localStorage.setItem("user", JSON.stringify(this.state));
-        window.location = "/";
+        this.props.mutate({ variables: {input: this.state }})
+            .then( response => {
+                this.props.history.push({
+                    pathname: '/',
+                    state: { userId: response.data.addUser.id }
+                })
+
+            }).catch(e => {
+                console.error(e);
+        });
     };
 
     render(){
@@ -52,4 +63,15 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default graphql(
+    gql`
+      mutation addUser($input: UserInput) {
+        addUser(input: $input) {
+          id
+          firstName
+          lastName
+          email
+        }
+      }
+    `
+)(withRouter(Login));

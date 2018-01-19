@@ -13,11 +13,9 @@ class FormManager extends Component {
         this.time = {
             minutes: 0
         };
-
-        this.saveResult = this.saveResult.bind(this);
     }
 
-    nextStep(data){
+    nextStep(data={}){
         this.time = {
             minutes: 0
         };
@@ -25,19 +23,6 @@ class FormManager extends Component {
             step: this.state.step + 1,
             data: Object.assign({}, this.state.data, data)
         })
-    }
-
-    saveResult() {
-        let results = JSON.parse(localStorage.getItem('results'));
-        let user = JSON.parse(localStorage.getItem("user"));
-        let result =  {user, id: Math.random().toString(36).substr(2, 9), graded: false, score: null, questions: this.state.data};
-        if(results === null){
-            results = [result];
-        }else {
-            results.push(result);
-        }
-
-        localStorage.setItem('results', JSON.stringify(results));
     }
 
     render(){
@@ -69,7 +54,6 @@ class FormManager extends Component {
                 </div>
             )
         }else {
-            this.saveResult();
             return (
                 <SuccessPage/>
             )
